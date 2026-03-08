@@ -1,0 +1,79 @@
+{
+  "name": "tocheck-explorer",
+  "displayName": "TOCHECK Explorer",
+  "description": "Scans workspace for // TOCHECK: Step X. comments and displays them in a hierarchical sidebar tree view.",
+  "version": "0.1.0",
+  "publisher": "tocheck",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tocheck-explorer",
+          "title": "TOCHECK Explorer",
+          "icon": "$(checklist)"
+        }
+      ]
+    },
+    "views": {
+      "tocheck-explorer": [
+        {
+          "id": "tocheckView",
+          "name": "Steps"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tocheck.refresh",
+        "title": "Refresh TOCHECK Comments",
+        "icon": "$(refresh)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "tocheck.refresh",
+          "when": "view == tocheckView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "TOCHECK Explorer",
+      "properties": {
+        "tocheckExplorer.includePattern": {
+          "type": "string",
+          "default": "**/*.{ts,tsx,js,jsx,py,go,rs,java,c,cpp,h,hpp,cs,rb,php,swift,kt,scala,sh,yaml,yml,json,md,html,css,scss,vue,svelte}",
+          "description": "Glob pattern for files to include when scanning for TOCHECK comments."
+        },
+        "tocheckExplorer.excludePattern": {
+          "type": "string",
+          "default": "**/node_modules/**,**/dist/**,**/build/**,**/.git/**,**/vendor/**,**/target/**",
+          "description": "Comma-separated glob patterns for files/folders to exclude from scanning."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "node esbuild.js",
+    "watch": "node esbuild.js --watch",
+    "vscode:prepublish": "node esbuild.js --production",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "esbuild": "^0.27.3",
+    "typescript": "^5.7.0"
+  }
+}
