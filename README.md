@@ -2,6 +2,10 @@
 
 A VS Code / Cursor extension that scans your workspace for `// TOCHECK: Step X. ...` comments and displays them as a hierarchical tree in the sidebar. Click any item to jump straight to its source line.
 
+I wrote it for reviewing code I did not write line by line: whoever (or whatever) produced the code leaves numbered `TOCHECK` comments at the places worth a look, and the sidebar turns them into an ordered walkthrough.
+
+**Try it:** not on the Marketplace or Open VSX yet. Clone the repo, run `npm install && npm run compile`, then press F5 in VS Code or Cursor to open it in an Extension Development Host (see [Development](#development)).
+
 ## Usage
 
 Add comments anywhere in your code using the pattern:
@@ -30,7 +34,7 @@ Multiple comment prefixes are supported: `//`, `#`, `--`, `;`, `%`, `/*`.
 
 - **Hierarchical tree view** in the activity bar sidebar
 - **Auto-refresh** on file create, change, delete, and while editing
-- **Click to navigate** — opens the file and centers the editor on the comment line
+- **Click to navigate**: opens the file and centers the editor on the comment line
 - **Manual refresh** button in the view title bar
 - **Configurable** include/exclude file glob patterns
 - **Respects** `files.exclude` and `search.exclude` VS Code settings
@@ -52,6 +56,8 @@ npm run watch      # rebuild on changes
 
 Press **F5** in VS Code / Cursor to launch the Extension Development Host.
 
+To install it into your own editor, package it with `npx @vscode/vsce package` and pick the resulting `.vsix` in "Extensions: Install from VSIX...".
+
 ## Architecture
 
 See the `// TOCHECK: Step N.` comments in the source code itself for a guided walkthrough of the code flow:
@@ -63,3 +69,11 @@ See the `// TOCHECK: Step N.` comments in the source code itself for a guided wa
 | 3 | `src/parser.ts` | Regex parsing and hierarchy building |
 | 4 | `src/provider.ts` | Tree data provider for the sidebar |
 | 5 | `src/extension.ts` | Activation, commands, wiring |
+
+## Status
+
+Built in March 2026, version 0.1.0. It does what I need day to day; no tests and no Marketplace listing yet.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
